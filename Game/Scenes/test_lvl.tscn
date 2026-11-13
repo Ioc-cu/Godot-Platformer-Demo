@@ -1,0 +1,70 @@
+[gd_scene format=4 uid="uid://bm8n1bkdg4k26"]
+
+[ext_resource type="Script" uid="uid://d018vn7f4d34s" path="res://Game/Scripts/test_lvl.gd" id="1_5kssm"]
+[ext_resource type="Texture2D" uid="uid://bg4pg5mg7pe7h" path="res://Game/icon.svg" id="1_hpnwk"]
+[ext_resource type="Texture2D" uid="uid://cskn6c4meuxqy" path="res://Game/Assets/Sprites/Aseprite_Assets/grass1.png" id="2_65noi"]
+[ext_resource type="Texture2D" uid="uid://xhx5cdhum7co" path="res://Game/Assets/Sprites/Aseprite_Assets/ladder8.png" id="2_ahw87"]
+[ext_resource type="PackedScene" uid="uid://rthja420vuey" path="res://Game/Scenes/player.tscn" id="2_hpnwk"]
+[ext_resource type="Script" uid="uid://c7w0e0f5416aa" path="res://Game/Scripts/tile_map_layer.gd" id="4_6wuw3"]
+[ext_resource type="Script" uid="uid://cbrbnfhpwxmfr" path="res://Game/Scripts/control.gd" id="5_uh4n2"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6wuw3"]
+texture = ExtResource("2_ahw87")
+texture_region_size = Vector2i(16, 8)
+0:0/0 = 0
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -4, 8, -4, 8, 4, -8, 4)
+1:0/0 = 0
+1:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-6.2222223, -4, 6.2222223, -4, 6.2222223, 4, -6.2222223, 4)
+2:0/0 = 0
+2:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -4, 8, -4, 8, 4, -8, 4)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kssm"]
+texture = ExtResource("2_65noi")
+texture_region_size = Vector2i(16, 8)
+0:1/0 = 0
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4, 8, -4, 8, 4, -8, 4)
+
+[sub_resource type="TileSet" id="TileSet_reohu"]
+tile_size = Vector2i(16, 8)
+physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 0
+sources/1 = SubResource("TileSetAtlasSource_6wuw3")
+sources/2 = SubResource("TileSetAtlasSource_5kssm")
+
+[node name="Node" type="Node" unique_id=1234968795]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1049726695]
+script = ExtResource("1_5kssm")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Node2D" unique_id=35930200]
+tile_map_data = PackedByteArray("AAAAABAAAgAAAAAAAAABABAAAgAAAAAAAAACABAAAgAAAAAAAAADABAAAgAAAAAAAAAEABAAAgAAAAAAAAAFABAAAgAAAAAAAAAGABAAAgAAAAAAAAAHABAAAgAAAAAAAAAIABAAAgAAAAAAAAAJABAAAgAAAAAAAAAKABAAAgAAAAAAAAALABAAAgAAAAAAAAAMABAAAgAAAAAAAAANABAAAgAAAAAAAAAOABAAAgAAAAAAAAAPABAAAgAAAAAAAAAAABEAAgAAAAEAAAABABEAAgAAAAEAAAACABEAAgAAAAEAAAADABEAAgAAAAEAAAAEABEAAgAAAAEAAAAFABEAAgAAAAEAAAAGABEAAgAAAAEAAAAHABEAAgAAAAEAAAAIABEAAgAAAAEAAAAJABEAAgAAAAEAAAAKABEAAgAAAAEAAAALABEAAgAAAAEAAAAMABEAAgAAAAEAAAANABEAAgAAAAEAAAAOABEAAgAAAAEAAAAPABEAAgAAAAEAAAAQABAAAgAAAAAAAAARABAAAgAAAAAAAAASABAAAgAAAAAAAAATABAAAgAAAAAAAAAUABAAAgAAAAAAAAAVABAAAgAAAAAAAAAQABEAAgAAAAEAAAARABEAAgAAAAEAAAAVABEAAgAAAAEAAAAUABEAAgAAAAEAAAATABEAAgAAAAEAAAASABEAAgAAAAEAAAAJAAkAAgAAAAAAAAAJAAoAAgAAAAEAAAAKAAkAAgAAAAAAAAAKAAoAAQABAAAAAAALAAkAAgAAAAAAAAALAAoAAgAAAAEAAAAMAAkAAgAAAAAAAAAMAAoAAgAAAAEAAAANAAkAAgAAAAAAAAANAAoAAgAAAAEAAAAOAAkAAgAAAAAAAAAOAAoAAgAAAAEAAAADAAkAAgAAAAAAAAADAAoAAgAAAAEAAAACAAkAAgAAAAAAAAACAAoAAgAAAAEAAAABAAkAAgAAAAAAAAABAAoAAgAAAAEAAAAAAAkAAgAAAAAAAAAAAAoAAgAAAAEAAAAPAAkAAgAAAAAAAAAPAAoAAgAAAAEAAAAQAAwAAgAAAAAAAAAQAA0AAgAAAAEAAAARAAsAAgAAAAAAAAARAAwAAgAAAAEAAAASAAoAAgAAAAAAAAASAAsAAgAAAAEAAAATAAkAAgAAAAAAAAATAAoAAgAAAAEAAAAUAAgAAgAAAAAAAAAUAAkAAgAAAAEAAAAVAAcAAgAAAAAAAAAVAAgAAgAAAAEAAAAKAA8AAQABAAAAAAAKAA4AAQABAAAAAAAKAA0AAQABAAAAAAAKAAwAAQABAAAAAAAKAAsAAQABAAAAAAA=")
+tile_set = SubResource("TileSet_reohu")
+script = ExtResource("4_6wuw3")
+
+[node name="CharacterBody2D" parent="Node2D" unique_id=1883396651 instance=ExtResource("2_hpnwk")]
+position = Vector2(168, 64)
+
+[node name="Parallax2D" type="Parallax2D" parent="Node2D" unique_id=1607078057]
+show_behind_parent = true
+scale = Vector2(24.0469, 5.17969)
+scroll_scale = Vector2(2, 2)
+scroll_offset = Vector2(0, 331)
+repeat_size = Vector2(10, 0)
+repeat_times = 10
+
+[node name="Icon" type="Sprite2D" parent="Node2D/Parallax2D" unique_id=1713121334]
+position = Vector2(0, -50.015)
+scale = Vector2(0.0827648, 0.215362)
+texture = ExtResource("1_hpnwk")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1596110371]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=356774115]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+script = ExtResource("5_uh4n2")

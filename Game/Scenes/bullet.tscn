@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bxjtxunnt8r6t"]
+
+[ext_resource type="Script" uid="uid://cm3rhk01mtk5f" path="res://Game/Scripts/bullet.gd" id="1_ycag2"]
+[ext_resource type="Texture2D" uid="uid://dweghu80u2l5o" path="res://Game/Assets/Sprites/Aseprite_Assets/fireball-Sheet.png" id="2_6afsh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7duk"]
+atlas = ExtResource("2_6afsh")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2bd8"]
+atlas = ExtResource("2_6afsh")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0pa3"]
+atlas = ExtResource("2_6afsh")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ar6ij"]
+atlas = ExtResource("2_6afsh")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwqig"]
+atlas = ExtResource("2_6afsh")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v7oki"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7duk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2bd8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0pa3")
+}],
+"loop": 0,
+"name": &"collision",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ar6ij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwqig")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
+size = Vector2(8, 8)
+
+[node name="Area2D" type="Area2D" unique_id=1850212730]
+script = ExtResource("1_ycag2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=729657546]
+sprite_frames = SubResource("SpriteFrames_v7oki")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1748609822]
+shape = SubResource("RectangleShape2D_v8qja")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=409296837]

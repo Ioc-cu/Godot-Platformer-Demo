@@ -1,0 +1,86 @@
+To-Do List:
+	Programming:
+		-Menus
+			-MainMenu
+			-PauseMenu
+			
+			-OptionsMenu(Present on Both)
+		-AI
+			-Character/Player AI
+				-Movement
+					-Normal Horizontal Movement(Pressing Left/Right button = changing the direction)✔
+						Will need to adjust speeds/different speed when on different ground.
+					-Jumping(Need to lookup formula again, but most basic method is jump = -y for abit, then gravity variable drags back down.)
+					-Moving through ladders (defying gravity)
+					-Moving through different terrain (ice drift=Friction Simulation, Water=Halved Velocity to x and y axis?) 
+					-Using an actual state machine: It seems all functionality for said state must be implemented... Meaning alot of copy-pasting if certain states share similar traits.
+						-Mabye look into Sub-States within a state? https://stackoverflow.com/questions/1324403/should-a-finite-state-machine-have-a-nested-finite-state-machine They might alleviate copy-pasting traits...
+					-Animation:
+						!!!Critical Bug!!!: When movement is a very small float value(movement key is slightly tapped), animation rendering shifts by 1 pixel.
+							Theory: What if it's still the idle frame that's playing, but the sprite has moved by offset of 1 pixel to [direction] and overlapped?
+							This seems like a very likely scenario, and appears to be the bug required to fix. Problem seems to be isolated to, in fact, the animation player... 
+							Even when player sprite is scaled, part of the frame seems to shift forwards.
+							Solution: Make sure the movement vector has no floating bits(trying to actually "solve" this problem might require how to make your own renderer or 
+								modifying godot's renderer, a fruitless effort).
+				-Camera Movement (Somewhat complete)
+					-Make a fictional ("Room Grid"), where every "room" is a fixed resolution size (adjustable resolution stretch original size, otherwise a room-based map system
+					would not work): Complete, but rough
+					-Make camera move when the player enters a screen's borders(Divide Player's position by fixed resolution to get the room ratio, 
+						ensure -0 axises don't exist by negating them by 1, and then cast floating-type vector to integer (to get normalized player's room position))
+						-Pause game objects while camera transition from one room to another happens
+						-Make parallax background also move(different direction from the camera's or not?): Done for 1 layer, if additional layers required: different directions at different speeds
+						-During Screen Transition: Align Player's position so that it is grid-aligned to the next 16x16 block
+				-Items/Equippables/Transitions/Modifiers etc.
+					-Random Enemy Item Dropping Logic(Item Drop Pool for hp/mana/coin drops with chances for each? Or 10% chance for something to drop, with all having equal chance?)
+					-Key Items Dropping(Through Triggers etc, shouldn't be hard)
+				-Projectiles
+					Projectile Logic:
+						-Despawn without animation when colliding with screen(room) border
+						-Despawn after animation when colliding with wall/enemy
+						-Dimensions: 8x8? 4x4? 8x8 seems better..
+						-Cooldown of [x] seconds/miliseconds between shots, to have shot consistency(depending on weapon)?
+							If [x] seconds have passed and key pressed, spawn projectile.
+					Constraints:
+						-Don't instantly throw projectile: tiny animation then throw object? Very tiny milisecond delay?
+						-Projectile Limit (2,3?)
+						-Gracefully exiting on collision with wall(boundanim,despawn) or enemy (hitsound,despawn)
+						
+			-Enemy AI
+				-NormalEnemies
+				-Bosses
+		-Level Editing and Triggers
+			-Interactible Objects
+			-Interactive Objects
+			-Object Triggers
+			-Level Transition
+		*Enemy AI and Objects should load and/or reload (depending on room) depending on whether the player is in the room or not (everything else should be unloaded?)
+		-In-Game UI Elements and Debug Menu
+			-Debug Menu
+				Resolution is 256x144,16:9... Could make text keep it's original size by ignoring viewport resolution somehow... Or could get a small 4-8 size font.
+				
+	Art Design:
+		Must choose fixed resolution size along with it's ratio: 16:9 formula: Easy... Multiply both 16 and 9 with the same multiplier and you get a resolution.
+		Want to check whether a resolution is 16:9? Divide x with 16, y with 9 and if both result in the same dividend, they are a 16:9 resolution.
+		Decided to try on 640x360.
+		Original La-Mulana Game Resolution is 640x440???? + 40 extra height for the Stats UI.... Actually a 4:3 Aspect Ratio.
+			Character 16x16 pixels?
+			UI is ScreenWidthx16 Pixels?
+			Each Character is 8x8 Font?
+		*Viewport Scaling: Project>Project Settings>Display>Window>Stretch Category: Mode=Viewport, Aspect=keep.
+		Sprites,characters etc. Must be analogous with said resolution to match the world... Time to test formulas!
+		Base resolution = 1.0. A whole screen is equivalent to... Depends on game project?
+		Take Inspiration from:
+			La-Mulana: Character is taking 
+			La-Mulana Remake: 
+		Perspective Change for all actors:
+			Top-Down Perspective: Characters have Frontside-Backside-Sideside
+			Side Perspective: Sideside?
+		Character Resolution: 16x32 atm... but 16x16 better?
+		SpriteSheet:
+			There is a weird bug when you draw on the borders of the 16x16 sprite (pixels from other sprite frames appear on other frames)... Solution is to leave the 
+			borders untouched as of now.
+		
+	Sound Design:
+		Sound Effects:
+		Music:
+https://www.ateijelo.com/blog/2016/09/13/making-an-msx-font - Cool MSX font!
